@@ -22,7 +22,11 @@ import java.util.List;
 
 
 public class ExplorerActivity extends AppCompatActivity {
-
+    /*
+    * Actividad encargada de crear el explorador de archivos.
+    * Creador: Denardi Bruno
+    * Fecha:   26/03/2018
+    */
        Button buttonUp, buttonOpenDialog, atras;
        TextView textFolder;
        public EditText pathArchivo;
@@ -37,7 +41,7 @@ public class ExplorerActivity extends AppCompatActivity {
 
         private List<String> fileList = new ArrayList<String>();
 
-        /** Called when the activity is first created. */
+        /* Metodo que se ejecuta cuando se crea la actividad*/
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -47,8 +51,11 @@ public class ExplorerActivity extends AppCompatActivity {
             buttonOpenDialog = findViewById(R.id.opendialog);
             pathArchivo.setEnabled(false);
             Intent intent = getIntent();
+
+            /* Guarda el activity padre del que proviene */
             padre = intent.getIntExtra("padre", 0);
 
+            /* Meotodo que se dispara cuando se preciona el boton de abrir carpeta */
             buttonOpenDialog.setOnClickListener(new Button.OnClickListener(){
                 @Override
                 public void onClick(View arg0) {
@@ -56,12 +63,15 @@ public class ExplorerActivity extends AppCompatActivity {
                     showDialog(CUSTOM_DIALOG_ID);
                 }});
 
+            /* Variable encargada de llevar el archivo que se encuentra en el path inicial*/
             root = new File(Environment
                     .getExternalStorageDirectory()
                     .getAbsolutePath());
 
+            /* Directorio raiz */
             curFolder = root;
 
+            /* Meotodo que se dispara con click sobre el boton Atras */
             atras.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,6 +81,7 @@ public class ExplorerActivity extends AppCompatActivity {
 
         }
 
+        /* Metodo Dialog, la misma crear un activity donde se mostraran el listado de carpetas y archivos del sistema */
         @SuppressWarnings("deprecation")
         @Override
         protected Dialog onCreateDialog(int id) {
@@ -97,7 +108,7 @@ public class ExplorerActivity extends AppCompatActivity {
                             ListDir(curFolder.getParentFile());
                         }});
 
-                    //Prepare ListView in dialog
+                    //Inserta la vista dialog
                     dialog_ListView = dialog.findViewById(R.id.dialoglist);
 
                     dialog_ListView.setOnItemClickListener(new OnItemClickListener(){
@@ -126,6 +137,7 @@ public class ExplorerActivity extends AppCompatActivity {
             return dialog;
         }
 
+    /* Metodo utilizada para agregar conteido al activity que muestra el listado de carpetas y archivos */
     @SuppressWarnings("deprecation")
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle bundle) {
@@ -161,32 +173,33 @@ public class ExplorerActivity extends AppCompatActivity {
             dialog_ListView.setAdapter(directoryList);
         }
 
+    /* Metodo encargado de manejar el retorno a las diferentes activities y su parametros de salida entre activities  */
     private void btnNumberGenerator(View v, String s) {
         Intent intent = null;
-        if (padre == 1) {
+        if (padre == 1) { //Activity generar numeros
             intent = new Intent(this, NumberGenerateActivity.class);
         }else{
-            if (padre == 2) {
+            if (padre == 2) { //Activity generar clave
                 intent = new Intent(this, KeyGenerateActivity.class);
-                intent.putExtra("edicion", 1);
+                intent.putExtra("edicion", 1); // Habilitado para leer clave existe desde la generacion de claves
             }else{
-                if (padre == 3) {
+                if (padre == 3) { //Activity principal o inicial
                     intent = new Intent(this, MainActivity.class);
                 }
                 else{
-                    if (padre == 4) {
+                    if (padre == 4) { //Activity generar clave
                         intent = new Intent(this, KeyGenerateActivity.class);
-                        intent.putExtra("edicion", 2);
+                        intent.putExtra("edicion", 2); // Habilitado para generar nueva clave en la generacion de claves
                         intent.putExtra("archivo_key", s);
                     }
                     else{
-                        if (padre == 5) {
+                        if (padre == 5) { //Activity encriptar mensaje
                             intent = new Intent(this, EncryptMessageActivity.class);
                             intent.putExtra("edicion", 1);
                             intent.putExtra("archivo_key", s);
                         }
                         else{
-                            if (padre == 6) {
+                            if (padre == 6) { //Activity desencriptar mensaje
                                 intent = new Intent(this, DecryptMessageActivity.class);
                                 intent.putExtra("edicion", 1);
                                 intent.putExtra("archivo_key", s);

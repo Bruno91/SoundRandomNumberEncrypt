@@ -8,10 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class CryptoActivity extends AppCompatActivity {
+    /*
+     * Actividad encargada de manejar el menu de opciones que se encuentran disponibles para usar
+     * el audio, los numeros aleatorios y claves generadas con las diferentes funcionalidades
+     * Creador: Denardi Bruno
+     * Fecha:   28/03/2018
+     */
 
     private EditText patharchivo;
     private Button salir, generar, GenerarClave, EncriptarMensaje, DesencriptarMensaje, encriptar;
 
+    /* Metodo que se dispara cuando se crea el activity */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +36,7 @@ public class CryptoActivity extends AppCompatActivity {
         patharchivo.setEnabled(false);
         patharchivo.setText(archivo);
 
+        /* Metodo encargado de retornar a la activity previa cuando se presiona el boton atras*/
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +45,7 @@ public class CryptoActivity extends AppCompatActivity {
             }
         });
 
+        /* Metodo encargado de ir a la pantalla generar numeros aleatorios cuando se presiona el boton homonimo*/
         generar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +54,7 @@ public class CryptoActivity extends AppCompatActivity {
             }
         });
 
+        /* Metodo encargado de ir a la pantalla generadora de claves cuando se presiona el boton generar claves*/
         GenerarClave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +63,10 @@ public class CryptoActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        *  Meotodo encargado de redirigir a la pantalla encargada de encriptar mensajes de texto plano
+        *  cuando se preiona el boton encriptar texto
+        */
         EncriptarMensaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +75,10 @@ public class CryptoActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         *  Meotodo encargado de redirigir a la pantalla encargada de desencriptar mensajes de texto plano
+         *  cuando se preiona el boton encriptar texto
+         */
         DesencriptarMensaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,24 +88,28 @@ public class CryptoActivity extends AppCompatActivity {
         });
     }
 
+    /* Metodo creado para manejar el movimiento al activity correspondiente */
     private void btnKeyGenerateActivity(View v) {
         Intent intent = new Intent(this, KeyGenerateActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /* Metodo creado para manejar el movimiento al activity correspondiente */
     private void btnEncryptMessageActivity(View v) {
         Intent intent = new Intent(this, EncryptMessageActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /* Metodo creado para manejar el movimiento al activity correspondiente */
     private void btnDecryptMessageActivity(View v) {
         Intent intent = new Intent(this, DecryptMessageActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /* Metodo creado para manejar el movimiento al activity correspondiente */
     private void btnMainActivity(View v, String s) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("parametro",s);
@@ -95,6 +117,7 @@ public class CryptoActivity extends AppCompatActivity {
         finish();
     }
 
+    /* Metodo creado para manejar el movimiento al activity correspondiente */
     private void btnGenerarActivity(View v, String s) {
         Intent intent = new Intent(this, NumberGenerateActivity.class);
         intent.putExtra("parametro",s);
