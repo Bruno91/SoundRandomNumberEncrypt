@@ -1,14 +1,13 @@
 package com.example.bruno.randomgeneratorproyect;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import java.io.File;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +28,25 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String parametro = intent.getStringExtra("parametro");
         archivo.setText(parametro);
+
+        if (!(archivo.getText().toString().isEmpty()) || (archivo.getText().toString().contains("/")))
+        {
+            String[] arraypath = archivo.getText().toString().split("/");
+            int UltimoSting = arraypath.length;
+            String nombre_archivo = arraypath[UltimoSting - 1];
+
+            String[] parsename = nombre_archivo.split("\\.");
+            String extension = parsename[1];
+
+            if (!extension.equals("mp3"))
+            {
+                Toast.makeText(MainActivity.this,
+                        "Debe seleccionar un archivo de audio, con el la exntesion .mp3",
+                        Toast.LENGTH_LONG).show();
+                removeDialog(1);
+                archivo.setText("");
+            }
+        }
 
         btreload.setOnClickListener(new View.OnClickListener() {
             @Override

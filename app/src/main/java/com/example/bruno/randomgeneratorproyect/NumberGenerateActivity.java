@@ -59,24 +59,42 @@ public class NumberGenerateActivity extends AppCompatActivity {
         generar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String outputFile = archivo.getText().toString();
-                File initialFile = new File(outputFile);
-                InputStream targetStream = null;
-                try {
-                    targetStream = new FileInputStream(initialFile);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+
+
+                String[] arraypath = archivo.getText().toString().split("/");
+                int UltimoSting = arraypath.length;
+                String nombre_archivo = arraypath[UltimoSting - 1];
+
+                String[] parsename = nombre_archivo.split("\\.");
+                String extension = parsename[1];
+
+                if (!extension.equals("mp3"))
+                {
+                    Toast.makeText(NumberGenerateActivity.this,
+                            "Debe seleccionar un archivo de audio, con el la exntesion .mp3",
+                            Toast.LENGTH_LONG).show();
+                    removeDialog(1);
                 }
-                byte[] buffer = new byte[66442];
-                try {
-                    buffer = inputStreamToByteArray(targetStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                else {
+                    String outputFile = archivo.getText().toString();
+                    File initialFile = new File(outputFile);
+                    InputStream targetStream = null;
+                    try {
+                        targetStream = new FileInputStream(initialFile);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    byte[] buffer = new byte[66442];
+                    try {
+                        buffer = inputStreamToByteArray(targetStream);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    float[] arrayfloat;
+                    arrayfloat = byteArrayToInt(buffer);
+                    String valores = Arrays.toString(arrayfloat);
+                    numeros.setText(valores);
                 }
-                float[] arrayfloat;
-                arrayfloat = byteArrayToInt(buffer);
-                String valores = Arrays.toString(arrayfloat);
-                numeros.setText(valores);
             }
         });
 
