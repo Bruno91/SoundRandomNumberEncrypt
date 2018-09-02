@@ -16,7 +16,7 @@ public class CryptoActivity extends AppCompatActivity {
      */
 
     private EditText patharchivo;
-    private Button salir, generar, GenerarClave, EncriptarMensaje, DesencriptarMensaje, encriptar;
+    private Button salir, generar, GenerarClave, EncriptarMensaje, DesencriptarMensaje, numerosaleatorios;
 
     /* Metodo que se dispara cuando se crea el activity */
     @Override
@@ -29,6 +29,7 @@ public class CryptoActivity extends AppCompatActivity {
         GenerarClave = findViewById(R.id.button21);
         EncriptarMensaje = findViewById(R.id.button22);
         DesencriptarMensaje = findViewById(R.id.button23);
+        numerosaleatorios = findViewById(R.id.button20);
 
         Intent intent = getIntent();
         final String archivo = intent.getStringExtra("parametro");
@@ -86,6 +87,14 @@ public class CryptoActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        numerosaleatorios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnRandomNumberGenerateActivity(v);
+                finish();
+            }
+        });
     }
 
     /* Metodo creado para manejar el movimiento al activity correspondiente */
@@ -121,6 +130,12 @@ public class CryptoActivity extends AppCompatActivity {
     private void btnGenerarActivity(View v, String s) {
         Intent intent = new Intent(this, NumberGenerateActivity.class);
         intent.putExtra("parametro",s);
+        startActivity(intent);
+        finish();
+    }
+
+    private void btnRandomNumberGenerateActivity(View v) {
+        Intent intent = new Intent(this, RandomNumberGenerateActivity.class);
         startActivity(intent);
         finish();
     }

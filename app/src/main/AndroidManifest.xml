@@ -26,7 +26,8 @@
         <activity android:name=".ExplorerActivity" />
         <activity android:name=".EncryptMessageActivity" />
         <activity android:name=".DecryptMessageActivity" />
-        <activity android:name=".KeyGenerateActivity"></activity>
+        <activity android:name=".KeyGenerateActivity" />
+        <activity android:name=".RandomNumberGenerateActivity"></activity>
     </application>
 
 </manifest>

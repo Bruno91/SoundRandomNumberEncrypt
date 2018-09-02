@@ -204,6 +204,13 @@ public class ExplorerActivity extends AppCompatActivity {
                                 intent.putExtra("edicion", 1);
                                 intent.putExtra("archivo_key", s);
                             }
+                            else{
+                                if (padre == 7) { //Activity desencriptar mensaje
+                                    intent = new Intent(this, RandomNumberGenerateActivity.class);
+                                    intent.putExtra("edicion", 1);
+                                    intent.putExtra("archivo_key", s);
+                                }
+                            }
                         }
                     }
                 }
